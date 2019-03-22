@@ -40,8 +40,8 @@ def cityreader(cities=[]):
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
-for c in cities:
-    print(c.name, c.lat, c.lon)
+# for c in cities:
+#     print(c.name, c.lat, c.lon)
 
 # STRETCH GOAL!
 #
@@ -73,13 +73,42 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+point1 = input('Enter lat1,lon1: ').split(',')
+point2 = input('Enter lat2, lon2: ').split(',')
+
+lat1 = float(point1[0])
+lon1 = float(point1[1])
+lat2 = float(point2[0])
+lon2 = float(point2[1])
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+# def cityreader_stretch():
   # within will hold the cities that fall within the specified region
   within = []
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within 
-  # the specified coordinates.
+  topLat = 0
+  bottomLat = 0
+  rightLon = 0
+  leftLon = 0
+
+  # Normalize the top/bottom lat and left/right lon
+  if lat1 >= lat2:
+    topLat = lat1
+    bottomLat = lat2
+  else:
+    topLat = lat2
+    bottomLat = lat1
+
+  if lon1 >= lon2:
+    rightLon = lon1
+    leftLon = lon2
+  else:
+    rightLon = lon2
+    leftLon = lon1
+
+  # Loop through cities list. Add city to the result if it is within the bounds of the square.
+  for c in cities:
+    if c.lat <= topLat and c.lat >= bottomLat and c.lon <= rightLon and c.lon >= leftLon:
+      within.append(c)
 
   return within
